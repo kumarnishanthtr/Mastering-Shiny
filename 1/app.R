@@ -9,7 +9,7 @@ ui <- fluidPage(
 server <- function(input, output, session) {
   # Create a reactive expression
   dataset <- reactive({
-    get(input$dataset, "package:openxlsx")
+    get(input$dataset, "package:datasets")
   })
   
   output$summary <- renderPrint({

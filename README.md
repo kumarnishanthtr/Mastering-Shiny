@@ -13,4 +13,6 @@ Uses of Shiny:
 
  Introduction:
  two key components of every Shiny app: the UI and the server function
+ UI - How the app looks
+ Server - How the app works
  Shiny uses reactive programming

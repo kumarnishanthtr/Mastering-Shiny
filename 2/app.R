@@ -1,6 +1,6 @@
 library(shiny)
 animals <- c("dog", "cat", "mouse", "bird", "other", "I hate animals")
-ui <- fluidPage(
+ui_old <- fluidPage(
   sliderInput('min', 'Limit (minimum)', min = 0, max = 100, value = 50),
   textInput("name", "", placeholder = 'name'),
   passwordInput("password", "", placeholder = 'enter password'),
@@ -17,7 +17,33 @@ ui <- fluidPage(
   
 )
 
-server <- function(input, output) {}
+ui <- fluidPage(
+  textOutput("text"),
+  verbatimTextOutput("code")
+)
+server <- function(input, output, session) {
+  output$text <- renderText({ 
+    "Hello friend!" 
+  })
+  output$code <- renderPrint({ 
+    summary(1:10) 
+  })
+}
 
+ui <- fluidPage(
+  tableOutput("static"),
+  dataTableOutput("dynamic")
+)
+server <- function(input, output, session) {
+  output$static <- renderTable(head(mtcars))
+  output$dynamic <- renderDataTable(mtcars, options = list(pageLength = 5))
+}
+
+ui <- fluidPage(
+  plotOutput("plot", width = "400px")
+)
+server <- function(input, output, session) {
+  output$plot <- renderPlot(plot(1:5), res = 96)
+}
 # Complete app with UI and server components
 shinyApp(ui, server)
